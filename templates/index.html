@@ -17,36 +17,44 @@
 	integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
 	crossorigin="anonymous"></script>
 	<meta charset="UTF-8">
+
+
 	<title>Рекомендуемая зарплата</title>
 </head>
 <body class="container">
 	<div class="row mt-4">
 		<div class="col-12 col-md-8 col-lg-6 mx-auto">
-			<form method="post" action="/">
+			<form method="post" name="input_text_form">
 				<div class="form-group">
 					<label for="input_vacancy_text">Текст вакансии</label>
 					<textarea class="form-control" id="input_vacancy_text" name="input_vacancy_text" rows="3">
 					</textarea>
 				</div>
-				<button type="submit" class="btn btn-dark btn-block">Отправить</button>
+				<div class="btn btn-dark btn-block" id="submit_text">Отправить</div>
 			</form>
+			<div id="output_text" class="m-2"></div>
 			<script>
-			  // создать объект для формы
-			  var formData = new FormData(document.forms.person);
+				submit_text.onclick = function() {
+						    // создать объект для формы
+						    var formData = new FormData(document.forms.input_text_form);
+					  // добавить к пересылке ещё пару ключ - значение			  
 
-			  // добавить к пересылке ещё пару ключ - значение
-			  formData.append("input_vacancy_text", "Робертович");
-
-			  // отослать
-			  var xhr = new XMLHttpRequest();
-			  xhr.open("POST", "/");
-			  xhr.send(formData);
-			 xhr.onreadystatechange = function () {
-        if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-            console.log(xhr.responseText);
-        };
-    };
+					  // отослать
+					  var xhr = new XMLHttpRequest();
+					  xhr.open("POST", "/");
+					  xhr.send(formData);
+					  xhr.onreadystatechange = function () {
+					  	if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+					  		//console.log(xhr.responseText);
+					  		//console.log(JSON.parse(xhr.responseText));
+					  		//console.log(formData.get('input_vacancy_text'));
+					  		var result_text = "Рекомендуемая зарплата: "+JSON.parse(xhr.responseText)[formData.get('input_vacancy_text')];			 
+					  		document.getElementById("output_text").textContent = result_text;
+					  	};
+					  };
+					};
 			</script>
+
 		</div>
 	</div>
 </body>
