@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from flask_restful import reqparse, abort, Api, Resource
+from flask_restful import reqparse, Api, Resource
 
 app = Flask(__name__)
 app.config.from_object('config')
