@@ -1,12 +1,23 @@
 from flask import Flask, render_template
 from flask_restful import reqparse, Api, Resource
+from flask_sqlalchemy import SQLAlchemy
+
+from config import Config
+
 
 app = Flask(__name__)
-app.config.from_object('config')
+app.config.from_object(Config)
+
+db = SQLAlchemy(app)
+
+
 api = Api(app)
 
 parser = reqparse.RequestParser()
 parser.add_argument('input_vacancy_text', type=str, help='Vacancy text')
+
+from neural_model import NeuralModel
+print(NeuralModel.query.all())
 
 
 @app.route('/', methods=['GET'])
