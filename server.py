@@ -16,8 +16,7 @@ api = Api(app)
 parser = reqparse.RequestParser()
 parser.add_argument('input_vacancy_text', type=str, help='Vacancy text')
 
-from neural_model import NeuralModel
-print(NeuralModel.query.all())
+from neural_predict import print_prediction
 
 
 @app.route('/', methods=['GET'])
@@ -31,7 +30,7 @@ class NeuralResult(Resource):
         print(args)
         #принимаем строку - возвращаем её длину
         #как победить кодировку?
-        return {args['input_vacancy_text']: len(args['input_vacancy_text'])}, 200
+        return {args['input_vacancy_text']: print_prediction(args['input_vacancy_text'])}, 200
 
 
 api.add_resource(NeuralResult, '/')
