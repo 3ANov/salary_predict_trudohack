@@ -1,7 +1,6 @@
 import pickle
 import re
-import sklearn
-from neural_model import NeuralModel
+from neural_network_model.neural_model import NeuralModel
 
 
 TOKEN_RE = re.compile(r'[\w\d]+')
