@@ -1,7 +1,8 @@
+import os
 import pickle
 import re
-from neural_network_model.neural_model import NeuralModel
 
+import dill as dill
 
 TOKEN_RE = re.compile(r'[\w\d]+')
 
@@ -14,5 +15,8 @@ def tokenize_text_simple_regex(txt, min_token_size=4):
 
 
 def print_prediction(input):
-    loaded_model = pickle.loads(NeuralModel.query.filter_by(file_name='model_one').first().file)
+
+    loaded_model = dill.load(open('model_new_2.pickle', 'rb'))
     return loaded_model.predict([input])
+
+#print(print_prediction('менеджер среднего звена'))
